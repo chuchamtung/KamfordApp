@@ -1,4 +1,4 @@
-package com.kamford.app.compose.question
+package com.kamford.app.compose.user.question
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +8,7 @@ import com.kamford.app.data.MainRepository
 import com.kamford.app.di.RoomModule
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class QuestionsViewModel(
@@ -22,7 +23,7 @@ class QuestionsViewModel(
 
     init {
         viewModelScope.launch {
-            userStore.findUserByAndroidId(RoomModule.androidID).collect{
+            userStore.findUserByAndroidId(RoomModule.androidFinger).collect {
                 QuestionsViewState(
                     userData = it
                 )

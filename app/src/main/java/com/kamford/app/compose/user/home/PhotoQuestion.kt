@@ -37,11 +37,13 @@ import java.io.File
 
 @Composable
 fun PhotoQuestion(
+    username: String?,
     imageUri: Uri?,
     imageFile: File?,
     getNewImageUri: () -> PhotoState,
     onPhotoTaken: (PhotoState) -> Unit,
-    updateAvatar: (File) -> Unit,
+    updateAvatar: (File?,String?) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val hasPhoto = imageUri != null
     val iconResource = if (hasPhoto) {
@@ -66,7 +68,8 @@ fun PhotoQuestion(
             cameraLauncher.launch(newImage?.uri)
         },
         shape = MaterialTheme.shapes.small,
-        contentPadding = PaddingValues()
+        contentPadding = PaddingValues(),
+        modifier = modifier
     ) {
         Column {
             if (hasPhoto) {
@@ -110,11 +113,9 @@ fun PhotoQuestion(
 
             }
 
-
-
             if (hasPhoto) {
                 TextButton(onClick = {
-                    updateAvatar(imageFile!!)
+                    updateAvatar(imageFile!!,username)
                 } ) {
                     Text(text = "update avatar")
                 }

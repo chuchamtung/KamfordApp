@@ -33,3 +33,76 @@ data class PhotoState(
     var uri: Uri? = null,
     var file: File? = null
 )
+
+enum class MimeType(val type: String) {
+    JPEG(type = "image/jpeg"),
+    PNG(type = "image/png"),
+    WEBP(type = "image/webp"),
+    HEIC(type = "image/heic"),
+    HEIF(type = "image/heif"),
+    BMP(type = "image/x-ms-bmp"),
+    GIF(type = "image/gif"),
+    MPEG(type = "video/mpeg"),
+    MP4(type = "video/mp4"),
+    QUICKTIME(type = "video/quicktime"),
+    THREEGPP(type = "video/3gpp"),
+    THREEGPP2(type = "video/3gpp2"),
+    MKV(type = "video/x-matroska"),
+    WEBM(type = "video/webm"),
+    TS(type = "video/mp2ts"),
+    AVI(type = "video/avi");
+
+    companion object {
+
+        fun ofAll(hasGif: Boolean = true): Set<MimeType> {
+            return if (hasGif) {
+                entries.toSet()
+            } else {
+                entries.filter { it != GIF }.toSet()
+            }
+        }
+
+        fun ofImage(hasGif: Boolean = true): Set<MimeType> {
+            return if (hasGif) {
+                entries.filter { it.isImage }
+            } else {
+                entries.filter { it.isImage && it != GIF }
+            }.toSet()
+        }
+
+        fun ofVideo(): Set<MimeType> {
+            return entries.filter { it.isVideo }.toSet()
+        }
+
+    }
+    internal val isImage: Boolean
+        get() = type.startsWith(prefix = "image")
+    internal val isVideo: Boolean
+        get() = type.startsWith(prefix = "video")
+
+}
+
+//
+//@Stable
+//@Parcelize
+//data class MediaResource(
+//    internal val id: Long,
+//    internal val bucketId: String,
+//    internal val bucketName: String,
+//    val uri: Uri,
+//    val path: String,
+//    val name: String,
+//    val mimeType: String,
+//) : Parcelable {
+//
+//    val isImage: Boolean
+//        get() = mimeType.startsWith(prefix = "image")
+//
+//    val isVideo: Boolean
+//        get() = mimeType.startsWith(prefix = "video")
+//
+//}
+//
+//
+//
+//

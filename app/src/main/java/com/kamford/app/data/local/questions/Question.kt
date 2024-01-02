@@ -43,6 +43,5 @@ data class Question(
     @ColumnInfo(name = "image_l_url") val image_l_url: String? = null,
     @ColumnInfo(name = "image_m_url") val image_m_url: String? = null,
     @ColumnInfo(name = "image_s_url") val image_s_url: String? = null,
-    @ColumnInfo(name = "web_article_detail_url") val web_article_detail_url: String? = null,
-    @ColumnInfo(name = "blog_article_detail_url") val blog_article_detail_url: String? = null
+    @ColumnInfo(name = "web_question_detail_url") val web_article_detail_url: String? = null
 )

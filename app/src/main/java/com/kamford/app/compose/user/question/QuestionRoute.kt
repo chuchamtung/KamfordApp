@@ -1,4 +1,4 @@
-package com.kamford.app.compose.question
+package com.kamford.app.compose.user.question
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

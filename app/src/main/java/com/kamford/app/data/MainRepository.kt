@@ -45,36 +45,27 @@ class MainRepository {
             = withContext(Dispatchers.IO) {
         return@withContext NetworkModule.kamfordApi.signinPost(username,password)
     }
-
     suspend fun signupPost(username: String, password: String, nickname: String): DataResponse
             = withContext(Dispatchers.IO) {
         return@withContext NetworkModule.kamfordApi.signupPost(username,password,nickname)
     }
-
     suspend fun stateUsername(username: String): DataResponse
             = withContext(Dispatchers.IO) {
         return@withContext NetworkModule.kamfordApi.getNameState(username)
     }
-
     suspend fun stateNickname(nickname: String): DataResponse
             = withContext(Dispatchers.IO) {
         return@withContext NetworkModule.kamfordApi.getNickState(nickname)
     }
-
-
     suspend fun updateAvatarPost(imageUri: File, username: String): DataResponse
             = withContext(Dispatchers.IO) {
-//        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
-//            .addFormDataPart(
-//                "imageFile",
-//                imageFile.name,
-//                imageFile.asRequestBody("image/*".toMediaTypeOrNull()))
-//
-//        val parts: MutableList<MultipartBody.Part> = ArrayList(files.size)
         val requestBody = imageUri.asRequestBody("image/*".toMediaTypeOrNull())
         val imageFile = MultipartBody.Part.createFormData("imageFile", imageUri.name, requestBody)
-
         return@withContext NetworkModule.kamfordApi.updateAvatarPost(username, imageFile)
+    }
+    suspend fun stateMy(username: String): DataResponse
+            = withContext(Dispatchers.IO) {
+        return@withContext NetworkModule.kamfordApi.getMyState(username)
     }
 
 

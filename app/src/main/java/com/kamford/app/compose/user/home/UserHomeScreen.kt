@@ -80,6 +80,17 @@ fun UserHomeScreen(
             contentPadding = contentPadding,
             state = state
         ) {
+            item {
+                Text(text = viewState.userData?.name ?: "name")
+                Spacer(Modifier.height(8.dp))
+                Text(text = viewState.userData?.nickName ?: "nickName")
+                Spacer(Modifier.height(8.dp))
+                Text(text = viewState.userData?.loginState.toString())
+                Spacer(Modifier.height(8.dp))
+                Text(text = viewState.userData?.userKey ?: "userKey")
+            }
+
+
             if (userItem != null && userItem.loginState == 1){
                 item {
                     Spacer(Modifier.height(8.dp))
@@ -103,12 +114,13 @@ fun UserHomeScreen(
                 }
                 item {
                     TakeSelfieQuestion(
+                        username = viewState.userData?.name,
                         imageUri = viewModel.selfieUri,
                         imageFile = viewModel.selFile,
                         getNewImageUri = viewModel::getNewSelfie,
                         onPhotoTaken = viewModel::onSelfieResponse,
                         updateAvatar = viewModel::updateAvatar,
-                        modifier = modifier,
+                        modifier = modifier
                     )
                 }
             }else{
@@ -192,18 +204,21 @@ private fun UserHomeTopAppBar(
 
 @Composable
 fun TakeSelfieQuestion(
+    username: String?,
     imageUri: Uri?,
     imageFile: File?,
     getNewImageUri: () -> PhotoState,
     onPhotoTaken: (PhotoState) -> Unit,
-    updateAvatar: (File) -> Unit,
+    updateAvatar: (File?,String?) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     PhotoQuestion(
+        username = username,
         imageUri = imageUri,
         imageFile = imageFile,
         getNewImageUri = getNewImageUri,
         onPhotoTaken = onPhotoTaken,
-        updateAvatar = updateAvatar
+        updateAvatar = updateAvatar,
+        modifier = modifier
     )
 }

@@ -39,15 +39,17 @@ interface KamfordServiceApi {
     @POST("user/signup")
     suspend fun signupPost(@Query("username") username: String, @Query("password") password: String, @Query("nickname") nickname: String): DataResponse
     @GET("user/name-state/{name}")
-    suspend fun getNameState(@Path("name") name: String): DataResponse
-    @GET("user/nick-state/{name}")
-    suspend fun getNickState(@Path("name") name: String): DataResponse
+    suspend fun getNameState(@Path("name") username: String): DataResponse
+    @GET("user/nick-state")
+    suspend fun getNickState(@Query("nickname") nickname: String): DataResponse
     @Multipart
     @POST("user/update/avatar")
     suspend fun updateAvatarPost(
         @Query("username") username: String,
         @Part imageFile: MultipartBody.Part
     ): DataResponse
+    @GET("user/my-state/{name}")
+    suspend fun getMyState(@Path("name") username: String): DataResponse
 
     // @GET  @POST  @PUT  @DELETE  @PATH  @HEAD  @OPTIONS  @HTTP
     // @FormUrlEncoded  @Multipart   @Streaming
