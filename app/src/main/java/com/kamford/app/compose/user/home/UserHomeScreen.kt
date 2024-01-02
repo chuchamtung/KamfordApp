@@ -204,7 +204,6 @@ fun TakeSelfieQuestion(
         imageFile = imageFile,
         getNewImageUri = getNewImageUri,
         onPhotoTaken = onPhotoTaken,
-        modifier = modifier,
         updateAvatar = updateAvatar
     )
 }
